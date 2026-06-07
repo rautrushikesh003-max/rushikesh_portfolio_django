@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__tag">What I've Built</span>
+    <h1 class="page-hero__title">My <em>Projects</em></h1>
+  </div>
+</section>
+
+<section class="section projects-section">
+  <div class="projects-list">
+
+    {% for project in projects %}
+    <div class="project-card reveal">
+      <div class="project-card__num">0{{ forloop.counter }}</div>
+      <div class="project-card__body">
+        <div class="project-card__icon">{{ project.icon }}</div>
+        <h3 class="project-card__title">{{ project.title }}</h3>
+        <p class="project-card__desc">{{ project.desc }}</p>
+        <ul class="project-card__points">
+          {% for point in project.points %}
+          <li>{{ point }}</li>
+          {% endfor %}
+        </ul>
+        <div class="project-card__tags">
+          {% for tag in project.tags %}
+          <span>{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="project-card__visual">
+        <img src="{{ project.img }}" alt="{{ project.title }}" onerror="this.parentElement.style.display='none'" />
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+<section class="cta-section reveal">
+  <div class="cta-section__inner">
+    <h2>Interested in Working Together?</h2>
+    <p>I'm open to backend, full-stack, and networking-related roles.</p>
+    <a href="mailto:rautrushikesh003@gmail.com" class="btn btn--primary">Reach Out</a>
+  </div>
+</section>
+
+{% endblock %}

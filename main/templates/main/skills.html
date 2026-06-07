@@ -1,0 +1,68 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Skills{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <span class="page-hero__tag">What I Know</span>
+    <h1 class="page-hero__title">My <em>Skills</em></h1>
+  </div>
+</section>
+
+<section class="section skills-section">
+
+  <!-- Full Stack -->
+  <div class="skill-category reveal">
+    <div class="skill-category__header">
+      <div class="skill-category__icon">⚡</div>
+      <h2>Full Stack Development</h2>
+    </div>
+    <div class="skill-grid">
+      {% for skill in fullstack_skills %}
+      <div class="skill-card">
+        <img src="{{ skill.img }}" alt="{{ skill.name }}" class="skill-card__img" onerror="this.style.display='none'"/>
+        <span class="skill-card__name">{{ skill.name }}</span>
+        <div class="skill-card__bar"><div class="skill-card__fill" style="width: {{ skill.level }}%"></div></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Networking -->
+  <div class="skill-category reveal">
+    <div class="skill-category__header">
+      <div class="skill-category__icon">🌐</div>
+      <h2>Networking</h2>
+    </div>
+    <div class="skill-grid">
+      {% for skill in networking_skills %}
+      <div class="skill-card">
+        <img src="{{ skill.img }}" alt="{{ skill.name }}" class="skill-card__img" onerror="this.style.display='none'"/>
+        <span class="skill-card__name">{{ skill.name }}</span>
+        <div class="skill-card__bar"><div class="skill-card__fill" style="width: {{ skill.level }}%"></div></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tools -->
+  <div class="skill-category reveal">
+    <div class="skill-category__header">
+      <div class="skill-category__icon">🛠️</div>
+      <h2>Tools & Platforms</h2>
+    </div>
+    <div class="skill-grid">
+      {% for skill in tools_skills %}
+      <div class="skill-card">
+        <img src="{{ skill.img }}" alt="{{ skill.name }}" class="skill-card__img" onerror="this.style.display='none'"/>
+        <span class="skill-card__name">{{ skill.name }}</span>
+        <div class="skill-card__bar"><div class="skill-card__fill" style="width: {{ skill.level }}%"></div></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

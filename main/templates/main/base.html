@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Rushikesh Raut{% endblock %} | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav__logo" href="{% url 'home' %}">RR<span class="dot">.</span></a>
+    <ul class="nav__links">
+      <li><a href="{% url 'home' %}" class="nav__link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+      <li><a href="{% url 'about' %}" class="nav__link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
+      <li><a href="{% url 'skills' %}" class="nav__link {% if request.resolver_match.url_name == 'skills' %}active{% endif %}">Skills</a></li>
+      <li><a href="{% url 'projects' %}" class="nav__link {% if request.resolver_match.url_name == 'projects' %}active{% endif %}">Projects</a></li>
+      <li><a href="{% url 'contact' %}" class="nav__link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+      <li><a href="{% url 'hire_me' %}" class="nav__cta">Hire Me</a></li>
+    </ul>
+    <button class="nav__burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>© 2025 Rushikesh Raut &mdash; Built with Django</p>
+      <div class="footer__socials">
+        <a href="https://linkedin.com/in/rushikeshraut2003" target="_blank">LinkedIn</a>
+        <a href="mailto:rautrushikesh003@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'main/js/main.js' %}"></script>
+</body>
+</html>

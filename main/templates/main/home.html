@@ -1,0 +1,104 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__grid">
+    <div class="hero__text">
+      <span class="hero__badge">Available for Opportunities</span>
+      <h1 class="hero__name">Rushikesh<br><em>Raut</em></h1>
+      <p class="hero__role">Python Full Stack Developer<br><span class="hero__role-sub">& Networking Enthusiast</span></p>
+      <p class="hero__desc">Building scalable backend systems, REST APIs, and network-aware applications from Pune, India.</p>
+      <div class="hero__actions">
+        <a href="{% url 'projects' %}" class="btn btn--primary">View Projects</a>
+        <a href="{% url 'about' %}" class="btn btn--ghost">About Me</a>
+      </div>
+      <div class="hero__stats">
+        <div class="stat"><span class="stat__num">1+</span><span class="stat__label">Year Experience</span></div>
+        <div class="stat"><span class="stat__num">3+</span><span class="stat__label">Projects Built</span></div>
+        <div class="stat"><span class="stat__num">5+</span><span class="stat__label">Certifications</span></div>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__avatar-wrap">
+        <div class="hero__avatar">
+          {% comment %} <img src="httcs://api.dicebear.com/8.x/initials/svg?seed=RR&backgroundColor=0f172a&textColor=38bdf8&fontSize=36" alt="Rushikesh Raut" /> {% endcomment %}
+          <img src="{% static 'main/images/Ruhi.jpeg' %}" alt="Rushikesh Raut">
+        </div>
+        <div class="hero__badge-float hero__badge-float--1">Django</div>
+        <div class="hero__badge-float hero__badge-float--2">REST APIs</div>
+        <div class="hero__badge-float hero__badge-float--3">Networking</div>
+        <div class="hero__badge-float hero__badge-float--4">AWS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="hero__scroll">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- TECH STRIP -->
+<section class="strip">
+  <div class="strip__track">
+    {% for tech in techs %}
+    <span class="strip__item">{{ tech }}</span>
+    {% endfor %}
+    {% for tech in techs %}
+    <span class="strip__item">{{ tech }}</span>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS TEASER -->
+<section class="section featured">
+  <div class="section__header">
+    <h2 class="section__title">Featured Projects</h2>
+    <a href="{% url 'projects' %}" class="section__more">See all →</a>
+  </div>
+  <div class="cards-grid">
+
+    <div class="card card--featured reveal">
+      <div class="card__icon">📈</div>
+      <h3 class="card__title">Online Trading & Portfolio System</h3>
+      <p class="card__desc">Full-featured trading platform backend with Django REST APIs, portfolio management, and optimised SQL queries for real-time performance.</p>
+      <div class="card__tags">
+        <span>Django</span><span>REST API</span><span>SQL</span><span>Python</span>
+      </div>
+    </div>
+
+    <div class="card card--featured reveal">
+      <div class="card__icon">🎓</div>
+      <h3 class="card__title">Student Management System</h3>
+      <p class="card__desc">CRUD-driven Django application using ORM for automated academic record management with an intuitive admin interface.</p>
+      <div class="card__tags">
+        <span>Django</span><span>ORM</span><span>Python</span><span>CRUD</span>
+      </div>
+    </div>
+
+    <div class="card card--featured reveal">
+      <div class="card__icon">🌐</div>
+      <h3 class="card__title">Network Simulation Lab</h3>
+      <p class="card__desc">LAN/WAN topologies in Cisco Packet Tracer with full IP addressing, OSPF/RIP routing, VLANs, and network troubleshooting.</p>
+      <div class="card__tags">
+        <span>Cisco Packet Tracer</span><span>OSPF</span><span>VLANs</span><span>TCP/IP</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUICK CONTACT CTA -->
+<section class="cta-section reveal">
+  <div class="cta-section__inner">
+    <h2>🚀 Let's Build Something Together</h2>
+    <p>Open to full-time roles, internships, and freelance projects in backend or full-stack development.</p>
+    <a href="{% url 'contact' %}" class="btn btn--primary">Get In Touch</a>
+  </div>
+</section>
+
+{% endblock %}

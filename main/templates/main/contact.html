@@ -1,0 +1,478 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Contact Me{% endblock %}
+
+{% block content %}
+
+<style>
+  .contact {
+    min-height: 100vh;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+
+  .contact__container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .contact__header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .contact__title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 15px;
+    letter-spacing: -0.02em;
+  }
+
+  .contact__subtitle {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+  }
+
+  .contact__info {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 16px;
+    padding: 50px 40px;
+  }
+
+  .contact__form-wrapper {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 16px;
+    padding: 50px 40px;
+  }
+
+  .contact-item {
+    margin-bottom: 40px;
+  }
+
+  .contact-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-item__icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .contact-item__label {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .contact-item__content {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .contact-item__link {
+    color: #38bdf8;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .contact-item__link:hover {
+    color: #0ea5e9;
+    text-decoration: underline;
+  }
+
+  .contact-item__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+  }
+
+  .form-group label {
+    display: block;
+    color: #cbd5e1;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.8);
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-group--half {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group--half .form-group {
+    margin-bottom: 0;
+  }
+
+  .form-errors {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    list-style: none;
+    padding-left: 12px;
+  }
+
+  .form-errors li {
+    margin-bottom: 5px;
+  }
+
+  .form-errors li:before {
+    content: "❌ ";
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #000;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.4);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .messages {
+    margin-bottom: 30px;
+  }
+
+  .message {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    animation: slideIn 0.3s ease;
+  }
+
+  .message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #86efac;
+  }
+
+  .message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .response-time {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(71, 85, 105, 0.3);
+  }
+
+  .social-proof {
+    background: rgba(56, 189, 248, 0.05);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .social-proof__text {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+  }
+
+  .social-proof__icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .contact__title {
+      font-size: 2.5rem;
+    }
+
+    .contact__info,
+    .contact__form-wrapper {
+      padding: 30px 25px;
+    }
+
+    .form-group--half {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<!-- Messages -->
+{% if messages %}
+<div class="messages">
+  {% for message in messages %}
+    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+      {{ message }}
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<section class="contact">
+  <div class="contact__container">
+    
+    <!-- Header -->
+    <div class="contact__header">
+      <h1 class="contact__title">📬 Get In Touch</h1>
+      <p class="contact__subtitle">Have a project in mind or just want to say hello? I'd love to hear from you. Send me a message and I'll respond as soon as possible.</p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="contact__grid">
+      
+      <!-- Contact Info -->
+      <div class="contact__info">
+        <h2 style="color: #38bdf8; font-size: 1.5rem; margin-bottom: 30px;">💬 Direct Contact</h2>
+
+        <div class="contact-item">
+          <span class="contact-item__icon">📧</span>
+          <div class="contact-item__label">Email</div>
+          <div class="contact-item__content">
+            <div class="contact-item__links">
+              <a href="mailto:rautrushikesh003@gmail.com" class="contact-item__link">rautrushikesh003@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-item__icon">💼</span>
+          <div class="contact-item__label">LinkedIn</div>
+          <div class="contact-item__content">
+            <div class="contact-item__links">
+              <a href="https://linkedin.com/in/rushikeshraut2003" target="_blank" class="contact-item__link">linkedin.com/in/rushikeshraut2003</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-item__icon">💻</span>
+          <div class="contact-item__label">GitHub</div>
+          <div class="contact-item__content">
+            <div class="contact-item__links">
+              <a href="https://github.com" target="_blank" class="contact-item__link">github.com/rushikesh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-item__icon">📍</span>
+          <div class="contact-item__label">Location</div>
+          <div class="contact-item__content">
+            Pune, India<br><span style="color: #94a3b8;">Available for remote opportunities</span>
+          </div>
+        </div>
+
+        <div class="social-proof">
+          <p class="social-proof__text">💬 Typically responds within 24 hours</p>
+          <div class="social-proof__icons">
+            <span>✅ Remote Available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact__form-wrapper">
+        <h2 style="color: #38bdf8; font-size: 1.5rem; margin-bottom: 30px;">✍️ Send Message</h2>
+        <form method="post" class="contact-form">
+          {% csrf_token %}
+
+          <div class="form-group--half">
+            <div class="form-group">
+              <label for="id_name">{{ form.name.label }}</label>
+              {{ form.name }}
+              {% if form.name.errors %}
+                <ul class="form-errors">
+                  {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="id_email">{{ form.email.label }}</label>
+              {{ form.email }}
+              {% if form.email.errors %}
+                <ul class="form-errors">
+                  {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group--half">
+            <div class="form-group">
+              <label for="id_company">{{ form.company.label }}</label>
+              {{ form.company }}
+              {% if form.company.errors %}
+                <ul class="form-errors">
+                  {% for error in form.company.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="id_phone">{{ form.phone.label }}</label>
+              {{ form.phone }}
+              {% if form.phone.errors %}
+                <ul class="form-errors">
+                  {% for error in form.phone.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="id_job_type">{{ form.job_type.label }}</label>
+            {{ form.job_type }}
+            {% if form.job_type.errors %}
+              <ul class="form-errors">
+                {% for error in form.job_type.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="id_subject">{{ form.subject.label }}</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+              <ul class="form-errors">
+                {% for error in form.subject.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="id_message">{{ form.message.label }}</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+              <ul class="form-errors">
+                {% for error in form.message.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn-submit">Send Message 🚀</button>
+
+          <div class="response-time">
+            <strong>Response Time:</strong> I usually get back within 24 hours. Looking forward to connecting with you!
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Auto-focus first error field
+  const errorFields = document.querySelectorAll('.form-errors');
+  if (errorFields.length > 0) {
+    const firstErrorField = errorFields[0].parentElement.querySelector('input, textarea, select');
+    if (firstErrorField) {
+      firstErrorField.focus();
+    }
+  }
+</script>
+
+{% endblock %}
